@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:Clients"
+             x:Class="Clients.Views.ClientsPage"
+             x:DataType="local:ViewModel.ClientsViewModel">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*, Auto">
+        <ListView
+            ItemsSource="{Binding Clients}"
+            Grid.Row="0"
+            Margin="10"
+            SelectedItem="{Binding SelectedClient}">
+            <ListView.Behaviors>
+                <toolkit:EventToCommandBehavior
+                    EventName="ItemTapped"
+                    Command="{Binding ClientSelectedCommand}"
+                    EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Model.Client">
+                    <ViewCell>
+                        <Label FontSize="Medium">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Name}" />
+                                    <Span Text=" " />
+                                    <Span Text="{Binding LastName}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Row="1" ColumnDefinitions="*,1*,*" Margin="10">
+            <Button
+                Grid.Column="1"
+                Text="Add client"
+                Command="{Binding AddClientCommand}" />
+        </Grid>
+    </Grid>
+
+</ContentPage>

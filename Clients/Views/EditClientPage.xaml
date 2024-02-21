@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Clients"
+             x:Class="Clients.Views.EditClientPage"
+             x:DataType="local:ViewModel.EditClientViewModel"
+             Title="EditClientPage">
+    
+    <VerticalStackLayout>
+        <Entry Placeholder="Name" Text="{Binding State.Name}" />
+        <Entry Placeholder="Last name" Text="{Binding State.LastName}" />
+        <Entry Placeholder="Age" Text="{Binding State.Age}" />
+
+        <HorizontalStackLayout Spacing="10" HorizontalOptions="Fill">
+            <Entry Placeholder="Street" Text="{Binding State.Street}" />
+            <Entry Placeholder="Number" Text="{Binding State.Number}" />
+            <Entry Placeholder="City" Text="{Binding State.City}" />
+            <Entry Placeholder="Zip code" Text="{Binding State.ZipCode}" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout
+            HorizontalOptions="Fill"
+            VerticalOptions="End"
+            Margin="10"
+            Spacing="10">
+            <Button Text="Save" BackgroundColor="Green" Command="{Binding SaveCommand}" />
+            <Button Text="Cancel" Command="{Binding CancelCommand}" />
+            <Button Text="Delete" BackgroundColor="Red" Command="{Binding DeleteConfirmationRequestCommand}" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
