@@ -1,10 +1,20 @@
-# net-maui-clients
+# .NET MAUI Client Manager Application
+Client Manager is a cross-platform application that allows you to manage your clients with basic CRUD (Create, Read, Update, Delete) operations. It is built with .NET MAUI, a framework that lets you create native apps for Android, iOS, Mac, and Windows from a single C# codebase. It was created as an exercise to know the .NET MAUI framework a bit better.
 
-Screenshots:
-![image](https://github.com/andremn/net-maui-clients/assets/10975787/a5326d8a-4aa2-43a6-adb6-3d6f1772a757)
+## Features
+- Add new clients with their information like name, age, address
+- View the list of all clients in a list
+- Edit or delete existing clients
 
-![image](https://github.com/andremn/net-maui-clients/assets/10975787/ccf195ca-e654-4d14-a136-dcd197facb92)
+## Installation
+To run the app, you need to have .NET 8 installed on your machine. You can download it from [here](https://dotnet.microsoft.com/en-us/apps/maui).
 
-![image](https://github.com/andremn/net-maui-clients/assets/10975787/f36b5435-427e-4338-8cfb-c4d14b6e27fe)
+To install the app, follow these steps:
 
-![image](https://github.com/andremn/net-maui-clients/assets/10975787/e768a811-a489-4f27-85db-8f13ec1efaeb)
+- Clone this repository to your local machine
+- Open the solution file in Visual Studio or Visual Studio Code
+- Select the target platform (Android, iOS, Mac, or Windows) and device or emulator
+- Build and run the app
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
