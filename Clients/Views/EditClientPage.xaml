@@ -24,7 +24,6 @@
             Margin="10"
             Spacing="10">
             <Button Text="Save" BackgroundColor="Green" Command="{Binding SaveCommand}" />
-            <Button Text="Cancel" Command="{Binding CancelCommand}" />
             <Button Text="Delete" BackgroundColor="Red" Command="{Binding DeleteConfirmationRequestCommand}" />
         </HorizontalStackLayout>
     </VerticalStackLayout>

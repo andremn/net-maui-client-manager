@@ -1,5 +1,4 @@
 using Clients.ViewModel;
-using Microsoft.Maui.Controls;
 
 namespace Clients.Views;
 
@@ -7,15 +6,15 @@ public partial class AddClientPage : ContentPage
 {
 	public AddClientPage(AddClientViewModel viewModel)
 	{
-        viewModel.CloseWindowRequest += OnCloseWindowRequest;
+        viewModel.NavigateBackRequested += OnNavigateBackRequested;
 
 		BindingContext = viewModel;
 
 		InitializeComponent();
 	}
 
-    private void OnCloseWindowRequest(object? sender, EventArgs e)
+    private async void OnNavigateBackRequested(object? sender, EventArgs e)
     {
-        Application.Current?.CloseWindow(Window);
+	    await Navigation.PopAsync();
     }
 }

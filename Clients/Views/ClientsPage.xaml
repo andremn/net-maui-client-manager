@@ -4,7 +4,8 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local="clr-namespace:Clients"
              x:Class="Clients.Views.ClientsPage"
-             x:DataType="local:ViewModel.ClientsViewModel">
+             x:DataType="local:ViewModel.ClientsViewModel"
+             Title="See all your clients here">
 
     <ContentPage.Resources>
         <ResourceDictionary>

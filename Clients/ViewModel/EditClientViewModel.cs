@@ -19,11 +19,6 @@ public class EditClientViewModel : BaseViewModel
             State = EditClientPageState.FromClient(message.Value);
         });
 
-        CancelCommand = new Command(() =>
-        {
-            CloseWindowRequest?.Invoke(this, EventArgs.Empty);
-        });
-
         SaveCommand = new Command(async () =>
         {
             var client = State.ToClient(_clientId);
@@ -32,7 +27,7 @@ public class EditClientViewModel : BaseViewModel
 
             WeakReferenceMessenger.Default.Send(new ClientUpdatedMessage(client));
 
-            CloseWindowRequest?.Invoke(this, EventArgs.Empty);
+            NotifyNavigateBackRequested();
         });
 
         DeleteConfirmationRequestCommand = new Command(() =>
@@ -46,11 +41,9 @@ public class EditClientViewModel : BaseViewModel
 
             WeakReferenceMessenger.Default.Send(new ClientDeletedMessage(_clientId));
 
-            CloseWindowRequest?.Invoke(this, EventArgs.Empty);
+            NotifyNavigateBackRequested();
         });
     }
-
-    public event EventHandler? CloseWindowRequest;
 
     public event EventHandler? DeleteDialogRequest;
 
@@ -59,8 +52,6 @@ public class EditClientViewModel : BaseViewModel
         get => _state;
         set => SetValue(ref _state, value);
     }
-
-    public ICommand CancelCommand { get; set; }
 
     public ICommand SaveCommand { get; set; }
 

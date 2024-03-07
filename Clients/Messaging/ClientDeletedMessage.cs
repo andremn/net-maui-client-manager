@@ -1,5 +1,4 @@
-﻿using Clients.Model;
-using CommunityToolkit.Mvvm.Messaging.Messages;
+﻿using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace Clients.Messaging;
 

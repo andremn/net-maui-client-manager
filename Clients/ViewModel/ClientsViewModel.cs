@@ -3,51 +3,36 @@ using Clients.Model;
 using Clients.Repository;
 using Clients.Views;
 using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Clients.ViewModel;
 
 public class ClientsViewModel : BaseViewModel
 {
+    private readonly IClientRepository _repository;
+    
     private ObservableCollection<Client> _clients = [];
 
     public ClientsViewModel(IServiceProvider serviceProvider)
     {
-        var repository = serviceProvider.GetRequiredService<IClientRepository>();
-
-        Task.Run(async () =>
-        {
-            var clients = await repository.GetAllAsync();
-
-            Application.Current?.Dispatcher.Dispatch(() =>
-            {
-                foreach (var client in clients)
-                {
-                    _clients.Add(client);
-                }
-            });
-        });
+        _repository = serviceProvider.GetRequiredService<IClientRepository>();
 
         ClientSelectedCommand = new Command(() =>
         {
-            Application.Current?.OpenWindow(new Window
-            {
-                Page = serviceProvider.GetRequiredService<EditClientPage>(),
-                Title = "Edit client"
-            });
+            var targetPage = serviceProvider.GetRequiredService<EditClientPage>();
+            
+            NotifyNavigateToPageRequested(targetPage);
 
             WeakReferenceMessenger.Default.Send(new SelectedClientChangedMessage(SelectedClient));
         });
 
         AddClientCommand = new Command(() =>
         {
-            Application.Current?.OpenWindow(new Window
-            {
-                Page = serviceProvider.GetRequiredService<AddClientPage>(),
-                Title = "Add client"
-            });
+            var targetPage = serviceProvider.GetRequiredService<AddClientPage>();
+            
+            NotifyNavigateToPageRequested(targetPage);
         });
 
         WeakReferenceMessenger.Default.Register<ClientAddedMessage>(this, (_, message) =>
@@ -89,4 +74,14 @@ public class ClientsViewModel : BaseViewModel
     public ICommand ClientSelectedCommand { get; set; }
 
     public ICommand AddClientCommand { get; set; }
+
+    public async Task LoadClientsAsync()
+    {
+        var clients = await _repository.GetAllAsync();
+
+        foreach (var client in clients)
+        {
+            _clients.Add(client);
+        }
+    }
 }

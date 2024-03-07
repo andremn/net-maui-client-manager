@@ -4,10 +4,10 @@ namespace Clients;
 
 public partial class App : Application
 {
-	public App()
+	public App(ClientsPage clientsPage)
 	{
 		InitializeComponent();
 
-		MainPage = new AppShell();
+		MainPage = new NavigationPage(clientsPage);
 	}
 }
