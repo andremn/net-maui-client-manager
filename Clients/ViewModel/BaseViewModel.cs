@@ -7,17 +7,26 @@ public class BaseViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    public event NavigateRequestedEventHandler? NavigateToPageRequested;
+
+    public event EventHandler? NavigateBackRequested;
+
     protected void SetValue<T>(ref T property, T value, [CallerMemberName] string propertyName = "")
     {
-        if (!EqualityComparer<T>.Default.Equals(property, value))
-        {
-            property = value;
-            NotifyPropertyChanged(propertyName);
-        }        
+        if (EqualityComparer<T>.Default.Equals(property, value)) return;
+        
+        property = value;
+        NotifyPropertyChanged(propertyName);
     }
 
-    protected void NotifyPropertyChanged(string propertyName)
+    private void NotifyPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
+    protected void NotifyNavigateToPageRequested(ContentPage targetPage) =>
+        NavigateToPageRequested?.Invoke(this, new NavigateRequestedEventArgs(targetPage));
+
+    protected void NotifyNavigateBackRequested() =>
+        NavigateBackRequested?.Invoke(this, EventArgs.Empty);
 }

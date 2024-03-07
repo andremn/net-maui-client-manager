@@ -3,18 +3,11 @@ using Clients.ViewModel;
 using Clients.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.LifecycleEvents;
-using Microsoft.UI;
-using Microsoft.UI.Windowing;
-using Windows.Graphics;
-using WinRT.Interop;
 
 namespace Clients;
 
 public static class MauiProgram
 {
-    private static SizeInt32 _mainWindowSize;
-
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
@@ -35,38 +28,6 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
-#if WINDOWS
-        builder.ConfigureLifecycleEvents(events =>
-        {
-            events.AddWindows(wndLifeCycleBuilder =>
-            {
-                wndLifeCycleBuilder.OnWindowCreated(window =>
-                {
-                    var hWnd = WindowNative.GetWindowHandle(window);
-                    var myWndId = Win32Interop.GetWindowIdFromWindow(hWnd);
-                    var appWindow = AppWindow.GetFromWindowId(myWndId);
-                    var presenter = (appWindow.Presenter as OverlappedPresenter);
-
-                    if (window.Title == "Clients")
-                    {
-                        presenter?.Maximize();
-                        _mainWindowSize = appWindow.Size;
-                    }
-                    else
-                    {
-                        var halfWidth = _mainWindowSize.Width / 2;
-                        var halfHeight = _mainWindowSize.Height / 2;
-                        var centerX = (_mainWindowSize.Width - halfWidth) / 2;
-                        var centerY = (_mainWindowSize.Height - halfHeight) / 2;
-
-                        appWindow.Resize(new SizeInt32(halfWidth, halfHeight));
-                        appWindow.Move(new PointInt32(centerX, centerY));
-                    }
-                });
-            });
-        });
-#endif
-
         return builder.Build();
     }
 
@@ -81,9 +42,9 @@ public static class MauiProgram
 
     private static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
     {
-        builder.Services.AddSingleton<ClientsViewModel>();
-        builder.Services.AddSingleton<EditClientViewModel>();
-        builder.Services.AddSingleton<AddClientViewModel>();
+        builder.Services.AddTransient<ClientsViewModel>();
+        builder.Services.AddTransient<EditClientViewModel>();
+        builder.Services.AddTransient<AddClientViewModel>();
 
         return builder;
     }

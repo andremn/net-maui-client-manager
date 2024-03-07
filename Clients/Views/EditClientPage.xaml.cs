@@ -1,5 +1,4 @@
 using Clients.ViewModel;
-using Microsoft.Maui.Controls;
 
 namespace Clients.Views;
 
@@ -9,7 +8,7 @@ public partial class EditClientPage : ContentPage
 
     public EditClientPage(EditClientViewModel viewModel)
 	{
-        viewModel.CloseWindowRequest += OnCloseWindowRequest;
+        viewModel.NavigateBackRequested += OnNavigateBackRequested;
         viewModel.DeleteDialogRequest += OnDeleteDialogRequest;
 
 		BindingContext = viewModel;
@@ -18,9 +17,9 @@ public partial class EditClientPage : ContentPage
         _viewModel = viewModel;
     }
 
-    private void OnCloseWindowRequest(object? sender, EventArgs e)
+    private async void OnNavigateBackRequested(object? sender, EventArgs e)
     {
-        Application.Current?.CloseWindow(Window);
+        await Navigation.PopAsync();
     }
 
     private async void OnDeleteDialogRequest(object? sender, EventArgs e)

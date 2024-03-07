@@ -12,11 +12,6 @@ public class AddClientViewModel : BaseViewModel
 
     public AddClientViewModel(IClientRepository clientRepository)
     {
-        CancelCommand = new Command(() =>
-        {
-            CloseWindowRequest?.Invoke(this, EventArgs.Empty);
-        });
-
         SaveCommand = new Command(async () =>
         {
             var client = State.ToClient();
@@ -25,19 +20,15 @@ public class AddClientViewModel : BaseViewModel
 
             WeakReferenceMessenger.Default.Send(new ClientAddedMessage(client));
 
-            CloseWindowRequest?.Invoke(this, EventArgs.Empty);
+            NotifyNavigateBackRequested();
         });
     }
-
-    public event EventHandler? CloseWindowRequest;
 
     public AddClientPageState State
     {
         get => _state;
         set => SetValue(ref _state, value);
     }
-
-    public ICommand CancelCommand { get; set; }
 
     public ICommand SaveCommand { get; set; }
 

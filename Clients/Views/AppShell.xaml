@@ -8,7 +8,7 @@
     Title="Clients">
 
     <ShellContent
-        Title="Entrevista - Desafio 2"
+        Title="Client Manager App"
         ContentTemplate="{DataTemplate local:Views.ClientsPage}"
         Route="ClientsPage" />
 
