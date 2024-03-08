@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:local="clr-namespace:Clients"
+             xmlns:model="clr-namespace:Clients.Model"
+             xmlns:viewModel="clr-namespace:Clients.ViewModel"
              x:Class="Clients.Views.ClientsPage"
-             x:DataType="local:ViewModel.ClientsViewModel"
+             x:DataType="viewModel:ClientsViewModel"
              Title="See all your clients here">
 
     <ContentPage.Resources>
@@ -13,7 +14,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="*, Auto">
+    <Grid RowDefinitions="*, Auto" Margin="10">
         <ListView
             ItemsSource="{Binding Clients}"
             Grid.Row="0"
@@ -26,9 +27,9 @@
                     EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
             </ListView.Behaviors>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:Model.Client">
+                <DataTemplate x:DataType="model:Client">
                     <ViewCell>
-                        <Label FontSize="Medium">
+                        <Label FontSize="Medium" Margin="10">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{Binding Name}" />
@@ -41,12 +42,11 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Grid Grid.Row="1" ColumnDefinitions="*,1*,*" Margin="10">
-            <Button
-                Grid.Column="1"
-                Text="Add client"
-                Command="{Binding AddClientCommand}" />
-        </Grid>
+        <Button
+            VerticalOptions="End"
+            Margin="20"
+            Text="Add client"
+            Command="{Binding AddClientCommand}" />
     </Grid>
 
 </ContentPage>

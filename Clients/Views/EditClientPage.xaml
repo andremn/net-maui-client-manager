@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Clients"
+             xmlns:viewModel="clr-namespace:Clients.ViewModel"
              x:Class="Clients.Views.EditClientPage"
-             x:DataType="local:ViewModel.EditClientViewModel"
-             Title="EditClientPage">
+             x:DataType="viewModel:EditClientViewModel"
+             Title="Edit this client">
     
-    <VerticalStackLayout>
-        <Entry Placeholder="Name" Text="{Binding State.Name}" />
-        <Entry Placeholder="Last name" Text="{Binding State.LastName}" />
-        <Entry Placeholder="Age" Text="{Binding State.Age}" />
+    <Grid Margin="10">
+        <VerticalStackLayout
+            HorizontalOptions="Fill"
+            Spacing="10">
+            <Entry Placeholder="Name" Text="{Binding State.Name}" />
+            <Entry Placeholder="Last name" Text="{Binding State.LastName}" />
+            <Entry Placeholder="Age" Text="{Binding State.Age}" />
 
-        <HorizontalStackLayout Spacing="10" HorizontalOptions="Fill">
             <Entry Placeholder="Street" Text="{Binding State.Street}" />
             <Entry Placeholder="Number" Text="{Binding State.Number}" />
             <Entry Placeholder="City" Text="{Binding State.City}" />
             <Entry Placeholder="Zip code" Text="{Binding State.ZipCode}" />
-        </HorizontalStackLayout>
+        </VerticalStackLayout>
 
-        <HorizontalStackLayout
-            HorizontalOptions="Fill"
+        <VerticalStackLayout
+            Margin="0,10"
             VerticalOptions="End"
-            Margin="10"
             Spacing="10">
-            <Button Text="Save" BackgroundColor="Green" Command="{Binding SaveCommand}" />
-            <Button Text="Delete" BackgroundColor="Red" Command="{Binding DeleteConfirmationRequestCommand}" />
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+            <Button
+                Text="Save"
+                Command="{Binding SaveCommand}" />
+            <Button
+                Text="Delete"
+                BackgroundColor="Red"
+                Command="{Binding DeleteConfirmationRequestCommand}" />
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

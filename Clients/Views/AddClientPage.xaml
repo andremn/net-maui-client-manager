@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Clients"
+             xmlns:viewModel="clr-namespace:Clients.ViewModel"
              x:Class="Clients.Views.AddClientPage"
-             x:DataType="local:ViewModel.AddClientViewModel"
-             Title="EditClientPage">
+             x:DataType="viewModel:AddClientViewModel"
+             Title="Add a new client">
     
-    <VerticalStackLayout>
-        <Entry Placeholder="Name" Text="{Binding State.Name}" />
-        <Entry Placeholder="Last name" Text="{Binding State.LastName}" />
-        <Entry Placeholder="Age" Text="{Binding State.Age}" />
-
-        <HorizontalStackLayout Spacing="10" HorizontalOptions="Fill">
+    <Grid Margin="10">
+        <VerticalStackLayout
+            Spacing="15"
+            VerticalOptions="Start">
+            <Entry Placeholder="Name" Text="{Binding State.Name}" />
+            <Entry Placeholder="Last name" Text="{Binding State.LastName}" />
+            <Entry Placeholder="Age" Text="{Binding State.Age}" />
+        
             <Entry Placeholder="Street" Text="{Binding State.Street}" />
             <Entry Placeholder="Number" Text="{Binding State.Number}" />
             <Entry Placeholder="City" Text="{Binding State.City}" />
             <Entry Placeholder="Zip code" Text="{Binding State.ZipCode}" />
-        </HorizontalStackLayout>
-
-        <HorizontalStackLayout
-            HorizontalOptions="Fill"
+        </VerticalStackLayout>
+        <Button
+            Margin="20"
             VerticalOptions="End"
-            Margin="10"
-            Spacing="10">
-            <Button Text="Save" BackgroundColor="Green" Command="{Binding SaveCommand}" />
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+            Text="Save"
+            Command="{Binding SaveCommand}" />
+    </Grid>
 </ContentPage>
